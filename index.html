@@ -62,14 +62,14 @@
   <div class="screen" id="login-screen">
     <div></div>
     <div class="login-center">
-      <h1 class="login-title">🦷 ふくい歯科クリニック<br>在庫管理システム</h1>
+      <h1 class="login-title">🦷 在庫管理システム</h1>
       <div class="clock" id="clock">読み込み中...</div>
       <div style="text-align:left; font-size:13px; font-weight:bold; margin-bottom:6px;">職員名を選択してください</div>
       <select id="login-staff" style="margin-bottom:14px;"><option value="">-- 職員名を選択 --</option></select>
       <button type="button" class="btn" id="open-staff-btn" style="width:100%;">職員の登録・削除</button>
     </div>
     <div class="footer-bar">
-      <span class="ver-text">Ver.1.1.3</span>
+      <span class="ver-text">Ver.1.1.6</span>
       <button type="button" class="btn btn-primary" id="enter-btn" style="padding:14px 36px; font-size:17px;">入室 ➡</button>
     </div>
   </div>
@@ -84,10 +84,12 @@
         <div class="no-print" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
           <select id="filter-vendor" style="width:auto; padding:8px 12px; font-size:13px;"><option value="ALL">すべての注文先</option></select>
           <button type="button" class="btn" id="print-btn">🖨 一覧印刷</button>
+          <button type="button" class="btn" id="open-consult-btn" style="background:#fed7d7; color:#c53030;">💬 相談あり</button>
           <button type="button" class="btn btn-primary" id="open-add-item-btn">＋ 新規品目を登録</button>
         </div>
       </div>
       <div id="status" style="color:#e53e3e; font-size:12px; font-weight:bold; text-align:center;"></div>
+      <div id="active-consult-bar" class="no-print" style="margin-bottom:6px;"></div>
       <div class="table-wrap">
         <table>
           <thead>
@@ -108,7 +110,7 @@
       </div>
     </div>
     <div class="footer-bar">
-      <span class="ver-text">Ver.1.1.3</span>
+      <span class="ver-text">Ver.1.1.6</span>
       <button type="button" class="btn no-print" id="exit-btn" style="padding:10px 28px; font-size:15px;">終了</button>
     </div>
   </div>
@@ -139,6 +141,25 @@
     </div>
   </div>
 
+  <div class="modal" id="consult-modal">
+    <div class="modal-body">
+      <h3 style="margin:0 0 14px; text-align:center; color:#c53030;">💬 業者への相談・連絡登録</h3>
+      <label style="font-size:13px; font-weight:bold;">相談する業者</label>
+      <select id="c-vendor" style="margin:6px 0 12px;"></select>
+      <label style="font-size:13px; font-weight:bold;">相談内容</label>
+      <select id="c-cat" style="margin:6px 0 12px;">
+        <option value="口頭で相談">口頭で相談</option>
+        <option value="機械不調あり">機械不調あり</option>
+        <option value="その他">その他（具体的に入力）</option>
+      </select>
+      <label style="font-size:13px; font-weight:bold;">補足・具体的な内容（任意／その他の場合は必須）</label>
+      <input type="text" id="c-detail" placeholder="例：〇〇の新商品について聞きたい、など" style="margin:6px 0 16px;">
+      <div style="display:flex; gap:10px;">
+        <button type="button" class="btn" id="c-close" style="flex:1;">閉じる</button>
+        <button type="button" class="btn btn-primary" id="c-save" style="flex:1; background:#e53e3e;">業者画面へ通知</button>
+      </div>
+    </div>
+  </div>
   <div class="modal" id="order-modal">
     <div class="modal-body">
       <h3 style="margin:0 0 12px; text-align:center; color:#c53030;">📦 注文数の入力</h3>
@@ -163,6 +184,7 @@
       <button type="button" class="btn" id="staff-close" style="width:100%;">閉じる</button>
     </div>
   </div>
+
   <script>
     var SB_URL = "https://" + "krwddlhwqkgggyxdcncn" + ".supabase.co/rest/v1";
     var SB_KEY = "sb_publishable_nfJsyzjRbQ8jeIHgVHwoqg_-B1glb0G";
@@ -180,7 +202,6 @@
       var idx = vendors.findIndex(function(v){ return v.name === vName; });
       return PALETTE[(idx >= 0 ? idx : 0) % PALETTE.length];
     }
-
     function updateClock() {
       var now = new Date();
       var w = ["日","月","火","水","木","金","土"][now.getDay()];
@@ -188,7 +209,6 @@
         String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0") + ":" + String(now.getSeconds()).padStart(2,"0");
     }
     updateClock(); setInterval(updateClock, 1000);
-
     function api(path, opt) {
       opt = opt || {};
       var h = { "apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY, "Content-Type": "application/json" };
@@ -242,27 +262,35 @@
           var fv = document.getElementById("filter-vendor"), oldFv = fv.value;
           fv.innerHTML = '<option value="ALL">すべての注文先</option>' + vendors.map(function(v){ return '<option value="' + v.name + '">' + v.name + '</option>'; }).join("");
           if (vendors.some(function(v){ return v.name === oldFv; })) fv.value = oldFv;
-
           var iv = document.getElementById("in-vendor"), oldIv = iv.value;
           iv.innerHTML = vendors.map(function(v){ return '<option value="' + v.name + '">' + v.name + '</option>'; }).join("") + '<option value="__ADD_V__">＋ 新しい業者を追加</option>';
           if (vendors.some(function(v){ return v.name === oldIv; })) iv.value = oldIv;
+          var cv = document.getElementById("c-vendor"), oldCv = cv.value;
+          cv.innerHTML = vendors.map(function(v){ return '<option value="' + v.name + '">' + v.name + '</option>'; }).join("");
+          if (vendors.some(function(v){ return v.name === oldCv; })) cv.value = oldCv;
+        }
+        var r3 = await api("/consultations?select=*&order=id.asc");
+        if (r3.ok) {
+          var clist = await r3.json();
+          document.getElementById("active-consult-bar").innerHTML = clist.map(function(c){
+            return '<div style="display:inline-flex;align-items:center;gap:6px;background:#fff5f5;border:1px solid #feb2b2;color:#c53030;padding:4px 10px;border-radius:10px;font-size:12px;font-weight:bold;margin:2px 4px;">' +
+              '💬 相談送信中【' + c.vendor + '】' + c.category + (c.detail ? '（' + c.detail.replace(/</g,"&lt;") + '）' : '') + ' - ' + c.staff_name +
+              ' <button type="button" class="btn btn-neu-sm" style="padding:1px 6px;" onclick="delConsult(' + c.id + ')">取消</button></div>';
+          }).join("");
         }
         var r1 = await api("/staff?select=*"); if (!r1.ok) throw new Error(await r1.text()); staffs = await r1.json();
         var sel = document.getElementById("login-staff"), old = sel.value;
         sel.innerHTML = '<option value="">-- 職員名を選択 --</option>' + staffs.map(function(s){ return '<option value="' + s.name + '">' + s.name + '</option>'; }).join("");
         if (staffs.some(function(s){ return s.name === old; })) sel.value = old;
-
         document.getElementById("del-box").innerHTML = staffs.length ? staffs.map(function(s){
           return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:6px;border-radius:12px;box-shadow:inset 2px 2px 5px #dfd3b4;"><span>' + s.name + '</span><button type="button" class="btn btn-neu-sm" onclick="delS(\'' + s.name + '\')">削除</button></div>';
         }).join("") : '<p style="font-size:13px; color:#8c7b58; text-align:center;">登録されている職員はいません</p>';
-
         var r2 = await api("/inventory?select=*&order=id.asc"); if (!r2.ok) throw new Error(await r2.text()); items = await r2.json();
         renderTable();
         document.getElementById("status").innerText = "";
       } catch (e) { document.getElementById("status").innerText = "エラー: " + e.message; }
     }
     loadAll(); setInterval(loadAll, 5000);
-
     async function openOne(id, curQty) { if (curQty <= 0) return alert("すでに在庫は0です"); await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify({ quantity: curQty - 1, dismissed_alert: false }) }); await loadAll(); }
     async function changeAlertQty(id, val) { await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify({ alert_qty: Number(val), dismissed_alert: false }) }); await loadAll(); }
     async function dismissAlert(id) { await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify({ dismissed_alert: true }) }); await loadAll(); }
@@ -289,6 +317,17 @@
     }
     async function delItem(id) { if (confirm("この品目を削除しますか？")) { await api("/inventory?id=eq." + id, { method: "DELETE" }); await loadAll(); } }
     document.getElementById("print-btn").onclick = function() { window.print(); };
+    document.getElementById("open-consult-btn").onclick = function() { document.getElementById("consult-modal").style.display = "flex"; };
+    document.getElementById("c-close").onclick = function() { document.getElementById("consult-modal").style.display = "none"; };
+    document.getElementById("c-save").onclick = async function() {
+      var v = document.getElementById("c-vendor").value, cat = document.getElementById("c-cat").value, det = document.getElementById("c-detail").value.trim();
+      if (!v) return alert("業者を選択してください");
+      if (cat === "その他" && !det) return alert("「その他」の場合は具体的な内容を入力してください");
+      var res = await api("/consultations", { method: "POST", body: JSON.stringify({ vendor: v, staff_name: currentUser, category: cat, detail: det }) });
+      if (!res.ok) return alert("送信エラー: " + await res.text());
+      document.getElementById("c-detail").value = ""; document.getElementById("consult-modal").style.display = "none"; await loadAll();
+    };
+    async function delConsult(id) { if (confirm("この相談通知を取り消しますか？")) { await api("/consultations?id=eq." + id, { method: "DELETE" }); await loadAll(); } }
     document.getElementById("enter-btn").onclick = function() {
       var val = document.getElementById("login-staff").value; if (!val) return alert("職員名を選択してください");
       currentUser = val; document.getElementById("current-user-badge").innerText = "担当者: " + currentUser;
