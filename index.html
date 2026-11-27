@@ -22,44 +22,39 @@
   <style>
     * { box-sizing: border-box; font-family: sans-serif; }
     body { margin: 0; padding: 14px; background: #fbf4df; color: #4a4231; display: flex; justify-content: center; min-height: 100vh; touch-action: manipulation; }
-    .screen { width: 100%; max-width: 1180px; background: #fbf4df; border-radius: 24px; padding: 18px 20px; box-shadow: 10px 10px 20px #dfd3b4, -10px -10px 20px #ffffff; display: flex; flex-direction: column; justify-content: space-between; min-height: calc(100vh - 28px); }
-    .btn { background: #fbf4df; border: none; border-radius: 12px; padding: 9px 14px; font-weight: bold; color: #4a4231; cursor: pointer; box-shadow: 3px 3px 6px #dfd3b4, -3px -3px 6px #ffffff; font-size: 13px; }
+    .screen { width: 100%; max-width: 1180px; background: #fbf4df; border-radius: 24px; padding: 18px 22px; box-shadow: 10px 10px 20px #dfd3b4, -10px -10px 20px #ffffff; display: flex; flex-direction: column; justify-content: space-between; min-height: calc(100vh - 28px); }
+    .btn { background: #fbf4df; border: none; border-radius: 12px; padding: 9px 15px; font-weight: bold; color: #4a4231; cursor: pointer; box-shadow: 3px 3px 6px #dfd3b4, -3px -3px 6px #ffffff; font-size: 13px; }
     .btn:active { box-shadow: inset 2px 2px 5px #dfd3b4, inset -2px -2px 5px #ffffff; }
     .btn-primary { background: #f39c12; color: #fff; }
-    .btn-neu-sm { background: #fbf4df; color: #4a4231; padding: 5px 10px; font-size: 12px; border-radius: 10px; box-shadow: 3px 3px 5px #dfd3b4, -3px -3px 5px #ffffff; white-space: nowrap; }
+    .btn-neu-sm { background: #fbf4df; color: #4a4231; padding: 4px 9px; font-size: 12px; border-radius: 9px; box-shadow: 2px 2px 4px #dfd3b4, -2px -2px 4px #ffffff; white-space: nowrap; }
     select, input[type="text"], input[type="number"] { width: 100%; padding: 10px; border: none; border-radius: 12px; background: #fbf4df; box-shadow: inset 3px 3px 6px #dfd3b4, inset -3px -3px 6px #ffffff; font-size: 15px; color: #4a4231; }
     .login-center { max-width: 440px; width: 100%; margin: auto; text-align: center; }
     .login-title { font-size: 28px; color: #b7791f; margin: 0 0 12px; }
     .clock { font-size: 20px; font-weight: bold; color: #744210; margin-bottom: 24px; padding: 12px; border-radius: 16px; box-shadow: inset 3px 3px 6px #dfd3b4, inset -3px -3px 6px #ffffff; }
-    .top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #ebdcb9; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #ebdcb9; }
     .table-wrap { overflow-x: auto; flex: 1; }
     table { width: 100%; border-collapse: separate; border-spacing: 0 5px; min-width: 920px; }
     th { text-align: center; font-size: 12px; color: #744210; padding: 4px; font-weight: bold; }
-    td { background: #fbf4df; padding: 5px 7px; text-align: center; font-size: 14px; font-weight: bold; box-shadow: 0 2px 4px #dfd3b4; min-height: 38px; }
+    td { background: #fbf4df; padding: 5px 6px; text-align: center; font-size: 13px; font-weight: bold; box-shadow: 0 2px 4px #dfd3b4; height: 38px; }
     td:first-child { border-radius: 10px 0 0 10px; }
     td:last-child { border-radius: 0 10px 10px 0; }
-    .vendor-tag { display: inline-block; padding: 3px 8px; border-radius: 8px; font-size: 12px; font-weight: bold; min-width: 60px; }
-    .name-cell { display: flex; justify-content: space-between; align-items: center; gap: 8px; text-align: left; }
-    .min-sel { width: auto; padding: 3px 6px; font-size: 12px; border-radius: 8px; font-weight: bold; }
-    .order-ask { margin-top: 5px; padding: 5px 8px; background: #fff3bf; border: 1px solid #fcc419; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; gap: 6px; font-size: 12px; color: #8c5a00; }
-    .order-badge { margin-top: 4px; font-size: 11px; color: #d9480f; background: #ffe8cc; padding: 2px 8px; border-radius: 6px; display: inline-block; }
+    .vendor-tag { display: inline-block; padding: 3px 8px; border-radius: 8px; font-size: 12px; min-width: 60px; }
+    .name-flex { display: flex; align-items: center; justify-content: space-between; gap: 8px; text-align: left; }
+    .alert-box { display: inline-flex; align-items: center; gap: 4px; background: #fff5f5; border: 1px solid #feb2b2; color: #c53030; padding: 2px 6px; border-radius: 8px; font-size: 11px; }
+    .alert-sel { width: auto; padding: 2px 4px; font-size: 11px; border-radius: 6px; box-shadow: inset 1px 1px 3px #dfd3b4; }
     .qty-cell { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 6px; }
-    .qty-num { font-size: 16px; color: #2b6cb0; text-align: right; flex: 1; }
+    .qty-num { font-size: 15px; color: #2b6cb0; text-align: right; flex: 1; }
     .qty-num.low { color: #e53e3e; }
-    .deliv-num { font-size: 14px; color: #2b8a3e; }
-    .chk-big { width: 20px; height: 20px; accent-color: #f39c12; cursor: pointer; vertical-align: middle; }
+    .chk-big { width: 20px; height: 20px; accent-color: #f39c12; cursor: pointer; }
     .footer-bar { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 12px; padding-top: 8px; }
     .ver-text { font-size: 12px; color: #97835c; font-weight: bold; }
     .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 100; }
     .modal-body { width: 100%; max-width: 420px; background: #fbf4df; border-radius: 22px; padding: 22px; box-shadow: 8px 8px 16px #b8aa88; }
-    .print-only { display: none; }
     @media print {
       body { background: #fff !important; padding: 0 !important; }
-      .screen { box-shadow: none !important; background: #fff !important; padding: 0 !important; min-height: auto !important; }
+      .screen { box-shadow: none !important; background: #fff !important; padding: 0 !important; }
       .no-print { display: none !important; }
-      .print-only { display: table-cell !important; }
-      td { box-shadow: none !important; border-bottom: 1px solid #cbd5e0 !important; background: #fff !important; border-radius: 0 !important; }
-      th { border-bottom: 2px solid #4a5568 !important; }
+      td { box-shadow: none !important; border-bottom: 1px solid #ccc !important; background: #fff !important; }
     }
   </style>
 </head>
@@ -87,73 +82,56 @@
           <span id="current-user-badge" style="background:#f6e05e; padding:4px 10px; border-radius:10px; font-size:12px; font-weight:bold;"></span>
         </div>
         <div class="no-print" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-          <select id="filter-vendor" style="width:auto; padding:8px 10px; font-size:13px;">
-            <option value="ALL">すべての注文先</option>
-            <option value="ヒロ">ヒロ</option>
-            <option value="ササキ">ササキ</option>
-            <option value="三重D">三重D</option>
-            <option value="Ci">Ci</option>
-            <option value="アスクル">アスクル</option>
-          </select>
+          <select id="filter-vendor" style="width:auto; padding:8px 12px; font-size:13px;"><option value="ALL">すべての注文先</option></select>
           <button type="button" class="btn" id="print-btn">🖨 一覧印刷</button>
           <button type="button" class="btn btn-primary" id="open-add-item-btn">＋ 新規品目を登録</button>
         </div>
       </div>
-
-      <div id="status" class="no-print" style="color:#e53e3e; font-size:12px; font-weight:bold; text-align:center;"></div>
-
+      <div id="status" style="color:#e53e3e; font-size:12px; font-weight:bold; text-align:center;"></div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
               <th style="width:9%;">注文先</th>
-              <th style="width:36%; text-align:left; padding-left:10px;">品名 / 発注ライン</th>
+              <th style="width:36%; text-align:left; padding-left:10px;">品名 / 発注点</th>
               <th style="width:13%;">現在数量</th>
-              <th class="no-print" style="width:7%;">納品確認</th>
-              <th class="no-print" style="width:9%;">本日納品数</th>
-              <th class="no-print" style="width:9%;">確認者</th>
-              <th class="no-print" style="width:11%;">確認日時</th>
-              <th class="print-only" style="width:12%;">単価</th>
-              <th class="print-only" style="width:14%;">棚卸金額</th>
-              <th class="no-print" style="width:6%;">操作</th>
+              <th style="width:7%;">納品確認</th>
+              <th style="width:8%;">本日納品</th>
+              <th style="width:8%;">単価</th>
+              <th style="width:8%;">確認者</th>
+              <th style="width:6%;">確認日時</th>
+              <th class="no-print" style="width:5%;">操作</th>
             </tr>
           </thead>
           <tbody id="item-tbody"></tbody>
         </table>
       </div>
     </div>
-
-    <div class="footer-bar no-print">
+    <div class="footer-bar">
       <span class="ver-text">Ver.1.1.0</span>
-      <button type="button" class="btn" id="exit-btn" style="padding:10px 28px; font-size:15px;">終了</button>
+      <button type="button" class="btn no-print" id="exit-btn" style="padding:10px 28px; font-size:15px;">終了</button>
     </div>
   </div>
   <div class="modal" id="item-modal">
     <div class="modal-body">
       <h3 style="margin:0 0 14px; text-align:center; color:#b7791f;">新規品目の登録</h3>
       <label style="font-size:13px; font-weight:bold;">注文先</label>
-      <select id="in-vendor" style="margin:6px 0 12px;">
-        <option value="ヒロ">ヒロ</option>
-        <option value="ササキ">ササキ</option>
-        <option value="三重D">三重D</option>
-        <option value="Ci">Ci</option>
-        <option value="アスクル">アスクル</option>
-      </select>
+      <select id="in-vendor" style="margin:6px 0 10px;"></select>
+      <div id="new-vendor-box" style="display:none; margin-bottom:12px; padding:10px; border-radius:12px; box-shadow:inset 2px 2px 5px #dfd3b4;">
+        <div style="display:flex; gap:6px;">
+          <input type="text" id="new-vendor-name" placeholder="新しい業者名を入力">
+          <button type="button" class="btn btn-primary" id="add-vendor-btn" style="white-space:nowrap;">業者追加</button>
+        </div>
+      </div>
       <label style="font-size:13px; font-weight:bold;">品名</label>
       <input type="text" id="in-name" placeholder="例：グローブ Mサイズ" style="margin:6px 0 12px;">
       <label style="font-size:13px; font-weight:bold;">現在数量（初期在庫数と単位）</label>
-      <div style="display:flex; gap:10px; align-items:center; margin:6px 0 12px;">
+      <div style="display:flex; gap:10px; align-items:center; margin:6px 0 16px;">
         <input type="number" id="in-qty" value="1" min="0" style="flex:2;">
         <select id="in-unit" style="flex:1;">
-          <option value="個">個</option>
-          <option value="本">本</option>
-          <option value="箱">箱</option>
-          <option value="瓶">瓶</option>
-          <option value="組">組</option>
+          <option value="個">個</option><option value="本">本</option><option value="箱">箱</option><option value="瓶">瓶</option><option value="組">組</option>
         </select>
       </div>
-      <label style="font-size:13px; font-weight:bold;">注文予定ライン（残いくつで注文確認を出すか）</label>
-      <input type="number" id="in-min" value="1" min="0" style="margin:6px 0 16px;">
       <div style="display:flex; gap:10px;">
         <button type="button" class="btn" id="item-close" style="flex:1;">閉じる</button>
         <button type="button" class="btn btn-primary" id="item-save" style="flex:1;">登録する</button>
@@ -161,31 +139,47 @@
     </div>
   </div>
 
+  <div class="modal" id="order-modal">
+    <div class="modal-body">
+      <h3 style="margin:0 0 12px; text-align:center; color:#c53030;">📦 注文数の入力</h3>
+      <p id="order-target-name" style="text-align:center; font-weight:bold; margin:0 0 12px;"></p>
+      <label style="font-size:13px; font-weight:bold;">注文する数量</label>
+      <input type="number" id="order-qty-input" value="1" min="1" style="margin:6px 0 16px;">
+      <div style="display:flex; gap:10px;">
+        <button type="button" class="btn" id="order-cancel" style="flex:1;">キャンセル</button>
+        <button type="button" class="btn btn-primary" id="order-submit" style="flex:1;">注文アプリへ送信</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal" id="staff-modal">
     <div class="modal-body">
       <h3 style="margin:0 0 14px; text-align:center;">職員の登録・削除</h3>
-      <label style="font-size:12px; font-weight:bold;">新しい職員を追加</label>
-      <div style="display:flex; gap:8px; margin-top:6px; margin-bottom:16px;">
+      <div style="display:flex; gap:8px; margin-bottom:14px;">
         <input type="text" id="new-name" placeholder="例：山田 太郎">
         <button type="button" class="btn btn-primary" id="add-staff-btn" style="white-space:nowrap;">追加</button>
       </div>
-      <label style="font-size:12px; font-weight:bold;">登録済み職員一覧（削除）</label>
-      <div id="del-box" style="max-height:180px; overflow-y:auto; margin:8px 0 16px;"></div>
+      <div id="del-box" style="max-height:180px; overflow-y:auto; margin-bottom:14px;"></div>
       <button type="button" class="btn" id="staff-close" style="width:100%;">閉じる</button>
     </div>
   </div>
   <script>
     var SB_URL = "https://" + "krwddlhwqkgggyxdcncn" + ".supabase.co/rest/v1";
     var SB_KEY = "sb_publishable_nfJsyzjRbQ8jeIHgVHwoqg_-B1glb0G";
-    var currentUser = "", staffs = [], items = [];
+    var currentUser = "", staffs = [], items = [], vendors = [], orderTargetId = null;
 
-    var VENDOR_COLORS = {
-      "ヒロ": "background:#ffd6dc; color:#822736;",
-      "ササキ": "background:#d0ebff; color:#1864ab;",
-      "三重D": "background:#d3f9d8; color:#2b8a3e;",
-      "Ci": "background:#e5dbff; color:#5f3dc4;",
-      "アスクル": "background:#ffe8cc; color:#d9480f;"
-    };
+    var PALETTE = [
+      "background:#ffd6dc; color:#822736;",
+      "background:#d0ebff; color:#1864ab;",
+      "background:#d3f9d8; color:#2b8a3e;",
+      "background:#e5dbff; color:#5f3dc4;",
+      "background:#ffe8cc; color:#d9480f;",
+      "background:#fff3bf; color:#8f5d00;"
+    ];
+    function getVendorStyle(vName) {
+      var idx = vendors.findIndex(function(v){ return v.name === vName; });
+      return PALETTE[(idx >= 0 ? idx : 0) % PALETTE.length];
+    }
 
     function updateClock() {
       var now = new Date();
@@ -193,8 +187,7 @@
       document.getElementById("clock").innerText = now.getFullYear() + "年" + (now.getMonth()+1) + "月" + now.getDate() + "日(" + w + ") " +
         String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0") + ":" + String(now.getSeconds()).padStart(2,"0");
     }
-    updateClock();
-    setInterval(updateClock, 1000);
+    updateClock(); setInterval(updateClock, 1000);
 
     function api(path, opt) {
       opt = opt || {};
@@ -203,58 +196,57 @@
       opt.headers = h;
       return fetch(SB_URL + path, opt);
     }
-
     function renderTable() {
       var fv = document.getElementById("filter-vendor").value;
       var filtered = items.filter(function(it){ return fv === "ALL" || it.vendor === fv; });
       var tbody = document.getElementById("item-tbody");
       if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="10" style="border-radius:10px; color:#8c7b58; padding:18px;">登録されている品目はありません</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" style="border-radius:10px; color:#8c7b58; padding:18px;">登録されている品目はありません</td></tr>';
         return;
       }
-      var totalVal = 0;
-      var rows = filtered.map(function(it) {
-        var qty = Number(it.quantity || 0);
-        var minQ = Number(it.min_quantity !== undefined ? it.min_quantity : 1);
-        var ordQ = Number(it.order_qty || 0);
-        var disQ = Number(it.dismiss_qty !== undefined ? it.dismiss_qty : -1);
-        var price = Number(it.unit_price || 0);
+      tbody.innerHTML = filtered.map(function(it) {
         var unitStr = it.unit || "個";
-        totalVal += qty * price;
-
-        var lowCls = qty <= minQ ? " low" : "";
-        var vStyle = VENDOR_COLORS[it.vendor] || "background:#f6e05e; color:#4a4231;";
+        var alertQty = Number(it.alert_qty || 1);
+        var ordQty = Number(it.ordered_qty || 0);
         var tdQty = Number(it.today_delivery || 0);
-        var tdHtml = tdQty > 0 ? '<span class="deliv-num">+' + tdQty + unitStr + '</span>' : '<span style="color:#a0aec0;">-</span>';
-
+        var isLow = it.quantity <= alertQty;
         var opts = "";
-        for (var n = 0; n <= 20; n++) { opts += '<option value="' + n + '"' + (n === minQ ? ' selected' : '') + '>' + n + '</option>'; }
+        for (var n = 0; n <= 20; n++) opts += '<option value="' + n + '"' + (n === alertQty ? ' selected' : '') + '>' + n + '</option>';
 
-        var askHtml = "";
-        if (ordQ > 0) {
-          askHtml = '<div class="order-badge">📦 発注中：' + ordQ + unitStr + '</div>';
-        } else if (qty <= minQ && disQ !== qty) {
-          askHtml = '<div class="order-ask no-print"><span>注文しますか？</span><div><button type="button" class="btn btn-primary" style="padding:3px 9px; font-size:11px; margin-right:4px;" onclick="askOrder(' + it.id + ')">はい</button><button type="button" class="btn btn-neu-sm" style="padding:3px 8px; font-size:11px;" onclick="dismissOrder(' + it.id + ',' + qty + ')">いいえ</button></div></div>';
+        var statusBadge = "";
+        if (ordQty > 0) {
+          statusBadge = '<span style="background:#bee3f8; color:#2b6cb0; padding:2px 6px; border-radius:6px; font-size:11px;">注文中(' + ordQty + unitStr + ')</span>';
+        } else if (isLow && !it.dismissed_alert) {
+          statusBadge = '<span class="alert-box no-print">注文しますか？<button type="button" class="btn btn-neu-sm" style="background:#fc8181;color:#fff;padding:1px 6px;" onclick="openOrderModal(' + it.id + ')">はい</button><button type="button" class="btn btn-neu-sm" style="padding:1px 6px;" onclick="dismissAlert(' + it.id + ')">いいえ</button></span>';
         }
 
         return '<tr>' +
-          '<td><span class="vendor-tag" style="' + vStyle + '">' + it.vendor + '</span></td>' +
-          '<td style="text-align:left; padding-left:10px;"><div class="name-cell"><span>' + it.item_name.replace(/</g,"&lt;") + '</span><span class="no-print" style="font-size:12px; color:#744210; white-space:nowrap;">残<select class="min-sel" onchange="changeMin(' + it.id + ', this.value)">' + opts + '</select>' + unitStr + 'で注文予定</span></div>' + askHtml + '</td>' +
-          '<td><div class="qty-cell"><span class="qty-num' + lowCls + '">' + qty + unitStr + '</span><button type="button" class="btn btn-neu-sm no-print" onclick="openOne(' + it.id + ',' + qty + ')">開封</button></div></td>' +
-          '<td class="no-print"><input type="checkbox" class="chk-big" ' + (it.delivery_checked ? 'checked' : '') + ' onchange="toggleDelivery(' + it.id + ', this.checked)"></td>' +
-          '<td class="no-print">' + tdHtml + '</td>' +
-          '<td class="no-print" style="color:#2b6cb0; font-size:13px;">' + (it.confirmed_by || '-') + '</td>' +
-          '<td class="no-print" style="font-size:12px; color:#5a7180;">' + (it.confirmed_at || '-') + '</td>' +
-          '<td class="print-only">' + (price > 0 ? price.toLocaleString() + '円' : '-') + '</td>' +
-          '<td class="print-only">' + (price > 0 ? (qty * price).toLocaleString() + '円' : '-') + '</td>' +
+          '<td><span class="vendor-tag" style="' + getVendorStyle(it.vendor) + '">' + it.vendor + '</span></td>' +
+          '<td><div class="name-flex"><div><span>' + it.item_name.replace(/</g,"&lt;") + '</span> ' + statusBadge + '</div>' +
+          '<span class="no-print" style="font-size:11px; color:#744210; white-space:nowrap;">残<select class="alert-sel" onchange="changeAlertQty(' + it.id + ', this.value)">' + opts + '</select>' + unitStr + 'で注文予定</span></div></td>' +
+          '<td><div class="qty-cell"><span class="qty-num' + (isLow ? ' low' : '') + '">' + it.quantity + unitStr + '</span><button type="button" class="btn btn-neu-sm no-print" onclick="openOne(' + it.id + ',' + it.quantity + ')">開封</button></div></td>' +
+          '<td><input type="checkbox" class="chk-big" ' + (it.delivery_checked ? 'checked' : '') + ' onchange="toggleDelivery(' + it.id + ', this.checked)"></td>' +
+          '<td style="color:#2b8a3e;">' + (tdQty > 0 ? '+' + tdQty + unitStr : '-') + '</td>' +
+          '<td style="font-size:12px;">' + (it.unit_price > 0 ? it.unit_price.toLocaleString() + '円' : '-') + '</td>' +
+          '<td style="color:#2b6cb0; font-size:12px;">' + (it.confirmed_by || '-') + '</td>' +
+          '<td style="font-size:11px; color:#5a7180;">' + (it.confirmed_at || '-') + '</td>' +
           '<td class="no-print"><button type="button" class="btn btn-neu-sm" onclick="delItem(' + it.id + ')">削除</button></td>' +
         '</tr>';
       }).join("");
-      var sumRow = '<tr class="print-only" style="display:none;"><td colspan="4" style="text-align:right; font-weight:bold;">棚卸合計金額：' + totalVal.toLocaleString() + '円</td></tr>';
-      tbody.innerHTML = rows + sumRow;
     }
     async function loadAll() {
       try {
+        var r0 = await api("/vendors?select=*&order=name.asc");
+        if (r0.ok) {
+          vendors = await r0.json();
+          var fv = document.getElementById("filter-vendor"), oldFv = fv.value;
+          fv.innerHTML = '<option value="ALL">すべての注文先</option>' + vendors.map(function(v){ return '<option value="' + v.name + '">' + v.name + '</option>'; }).join("");
+          if (vendors.some(function(v){ return v.name === oldFv; })) fv.value = oldFv;
+
+          var iv = document.getElementById("in-vendor"), oldIv = iv.value;
+          iv.innerHTML = vendors.map(function(v){ return '<option value="' + v.name + '">' + v.name + '</option>'; }).join("") + '<option value="__ADD_V__">＋ 新しい業者を追加</option>';
+          if (vendors.some(function(v){ return v.name === oldIv; })) iv.value = oldIv;
+        }
         var r1 = await api("/staff?select=*"); if (!r1.ok) throw new Error(await r1.text()); staffs = await r1.json();
         var sel = document.getElementById("login-staff"), old = sel.value;
         sel.innerHTML = '<option value="">-- 職員名を選択 --</option>' + staffs.map(function(s){ return '<option value="' + s.name + '">' + s.name + '</option>'; }).join("");
@@ -269,99 +261,59 @@
         document.getElementById("status").innerText = "";
       } catch (e) { document.getElementById("status").innerText = "エラー: " + e.message; }
     }
-    loadAll();
-    setInterval(loadAll, 5000);
-    document.addEventListener("visibilitychange", function() { if (!document.hidden) loadAll(); });
+    loadAll(); setInterval(loadAll, 5000);
 
-    async function changeMin(id, val) {
-      await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify({ min_quantity: Number(val), dismiss_qty: -1 }) });
-      await loadAll();
+    async function openOne(id, curQty) { if (curQty <= 0) return alert("すでに在庫は0です"); await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify({ quantity: curQty - 1, dismissed_alert: false }) }); await loadAll(); }
+    async function changeAlertQty(id, val) { await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify({ alert_qty: Number(val), dismissed_alert: false }) }); await loadAll(); }
+    async function dismissAlert(id) { await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify({ dismissed_alert: true }) }); await loadAll(); }
+    function openOrderModal(id) {
+      var it = items.find(function(x){ return x.id === id; }); if (!it) return;
+      orderTargetId = id;
+      document.getElementById("order-target-name").innerText = "【" + it.vendor + "】" + it.item_name + "（単位：" + (it.unit || "個") + "）";
+      document.getElementById("order-qty-input").value = "1";
+      document.getElementById("order-modal").style.display = "flex";
     }
-
-    async function askOrder(id) {
-      var target = items.find(function(x){ return x.id === id; });
-      if (!target) return;
-      var unitStr = target.unit || "個";
-      var ans = prompt("「" + target.item_name + "」をいくつ注文しますか？（数字のみ入力）", "1");
-      if (ans === null) return;
-      var num = Number(ans);
-      if (!num || num <= 0) return alert("1以上の数字を入力してください");
-      await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify({ order_qty: num, dismiss_qty: -1 }) });
-      alert(target.vendor + " へ " + num + unitStr + " の注文を送信しました！");
-      await loadAll();
-    }
-
-    async function dismissOrder(id, curQty) {
-      await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify({ dismiss_qty: curQty }) });
-      await loadAll();
-    }
-
-    async function openOne(id, curQty) {
-      if (curQty <= 0) return alert("すでに在庫は0です");
-      await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify({ quantity: curQty - 1, dismiss_qty: -1 }) });
-      await loadAll();
-    }
-
+    document.getElementById("order-cancel").onclick = function() { document.getElementById("order-modal").style.display = "none"; };
+    document.getElementById("order-submit").onclick = async function() {
+      var q = Number(document.getElementById("order-qty-input").value); if (q <= 0) return alert("1以上の数量を入力してください");
+      await api("/inventory?id=eq." + orderTargetId, { method: "PATCH", body: JSON.stringify({ ordered_qty: q, dismissed_alert: false }) });
+      document.getElementById("order-modal").style.display = "none"; await loadAll();
+    };
     async function toggleDelivery(id, isChecked) {
       var target = items.find(function(x){ return x.id === id; });
-      var curQty = target ? Number(target.quantity || 0) : 0;
-      var addQty = target ? Number(target.today_delivery || 0) : 0;
+      var curQty = target ? Number(target.quantity || 0) : 0, addQty = target ? Number(target.today_delivery || 0) : 0;
       var now = new Date();
       var ts = now.getFullYear() + "/" + String(now.getMonth()+1).padStart(2,"0") + "/" + String(now.getDate()).padStart(2,"0") + " " + String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0");
-      var payload = isChecked
-        ? { delivery_checked: true, confirmed_by: currentUser, confirmed_at: ts, quantity: curQty + addQty, today_delivery: 0 }
-        : { delivery_checked: false, confirmed_by: "", confirmed_at: "" };
-      await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify(payload) });
-      await loadAll();
+      var payload = isChecked ? { delivery_checked: true, confirmed_by: currentUser, confirmed_at: ts, quantity: curQty + addQty, today_delivery: 0, dismissed_alert: false } : { delivery_checked: false, confirmed_by: "", confirmed_at: "" };
+      await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify(payload) }); await loadAll();
     }
-
     async function delItem(id) { if (confirm("この品目を削除しますか？")) { await api("/inventory?id=eq." + id, { method: "DELETE" }); await loadAll(); } }
-
-    document.getElementById("enter-btn").onclick = function() {
-      var val = document.getElementById("login-staff").value;
-      if (!val) return alert("入室する前に、職員名を選択してください");
-      currentUser = val;
-      document.getElementById("current-user-badge").innerText = "担当者: " + currentUser;
-      document.getElementById("login-screen").style.display = "none";
-      document.getElementById("main-screen").style.display = "flex";
-    };
-    document.getElementById("exit-btn").onclick = function() {
-      currentUser = "";
-      document.getElementById("login-staff").value = "";
-      document.getElementById("main-screen").style.display = "none";
-      document.getElementById("login-screen").style.display = "flex";
-    };
-    document.getElementById("filter-vendor").onchange = renderTable;
     document.getElementById("print-btn").onclick = function() { window.print(); };
+    document.getElementById("enter-btn").onclick = function() {
+      var val = document.getElementById("login-staff").value; if (!val) return alert("職員名を選択してください");
+      currentUser = val; document.getElementById("current-user-badge").innerText = "担当者: " + currentUser;
+      document.getElementById("login-screen").style.display = "none"; document.getElementById("main-screen").style.display = "flex";
+    };
+    document.getElementById("exit-btn").onclick = function() { currentUser = ""; document.getElementById("login-staff").value = ""; document.getElementById("main-screen").style.display = "none"; document.getElementById("login-screen").style.display = "flex"; };
+    document.getElementById("filter-vendor").onchange = renderTable;
     document.getElementById("open-add-item-btn").onclick = function() { document.getElementById("item-modal").style.display = "flex"; };
     document.getElementById("item-close").onclick = function() { document.getElementById("item-modal").style.display = "none"; };
+    document.getElementById("in-vendor").onchange = function(e) { document.getElementById("new-vendor-box").style.display = e.target.value === "__ADD_V__" ? "block" : "none"; };
+    document.getElementById("add-vendor-btn").onclick = async function() {
+      var vn = document.getElementById("new-vendor-name").value.trim(); if (!vn) return alert("業者名を入力してください");
+      await api("/vendors", { method: "POST", body: JSON.stringify({ name: vn }) });
+      document.getElementById("new-vendor-name").value = ""; document.getElementById("new-vendor-box").style.display = "none"; await loadAll(); document.getElementById("in-vendor").value = vn;
+    };
+    document.getElementById("item-save").onclick = async function() {
+      var vendor = document.getElementById("in-vendor").value; if (!vendor || vendor === "__ADD_V__") return alert("注文先を選択してください");
+      var name = document.getElementById("in-name").value.trim(); if (!name) return alert("品名を入力してください");
+      await api("/inventory", { method: "POST", body: JSON.stringify({ vendor: vendor, item_name: name, quantity: Number(document.getElementById("in-qty").value), unit: document.getElementById("in-unit").value }) });
+      document.getElementById("in-name").value = ""; document.getElementById("item-modal").style.display = "none"; await loadAll();
+    };
     document.getElementById("open-staff-btn").onclick = function() { document.getElementById("staff-modal").style.display = "flex"; };
     document.getElementById("staff-close").onclick = function() { document.getElementById("staff-modal").style.display = "none"; };
-
-    document.getElementById("item-save").onclick = async function() {
-      var vendor = document.getElementById("in-vendor").value;
-      var name = document.getElementById("in-name").value.trim();
-      var qty = Number(document.getElementById("in-qty").value);
-      var unit = document.getElementById("in-unit").value;
-      var minQ = Number(document.getElementById("in-min").value);
-      if (!name) return alert("品名を入力してください");
-      var res = await api("/inventory", { method: "POST", body: JSON.stringify({ vendor: vendor, item_name: name, quantity: qty, unit: unit, min_quantity: minQ }) });
-      if (!res.ok) return alert("登録エラー: " + await res.text());
-      document.getElementById("in-name").value = "";
-      document.getElementById("in-qty").value = "1";
-      document.getElementById("item-modal").style.display = "none";
-      await loadAll();
-    };
-    document.getElementById("add-staff-btn").onclick = async function() {
-      var n = document.getElementById("new-name").value.trim();
-      if (!n) return alert("名前を入力してください");
-      if (staffs.some(function(s){ return s.name === n; })) return alert("すでに登録されています");
-      var res = await api("/staff", { method: "POST", body: JSON.stringify({ name: n }) });
-      if (!res.ok) return alert("追加エラー: " + await res.text());
-      document.getElementById("new-name").value = "";
-      await loadAll();
-    };
-    async function delS(name) { if (confirm("「" + name + "」さんをリストから削除しますか？")) { await api("/staff?name=eq." + encodeURIComponent(name), { method: "DELETE" }); await loadAll(); } }
+    document.getElementById("add-staff-btn").onclick = async function() { var n = document.getElementById("new-name").value.trim(); if (!n) return; await api("/staff", { method: "POST", body: JSON.stringify({ name: n }) }); document.getElementById("new-name").value = ""; await loadAll(); };
+    async function delS(name) { if (confirm("削除しますか？")) { await api("/staff?name=eq." + encodeURIComponent(name), { method: "DELETE" }); await loadAll(); } }
   </script>
 </body>
 </html>
