@@ -26,7 +26,7 @@
     .btn { background: #fbf4df; border: none; border-radius: 12px; padding: 9px 16px; font-weight: bold; color: #4a4231; cursor: pointer; box-shadow: 3px 3px 6px #dfd3b4, -3px -3px 6px #ffffff; font-size: 13px; }
     .btn:active { box-shadow: inset 2px 2px 5px #dfd3b4, inset -2px -2px 5px #ffffff; }
     .btn-primary { background: #f39c12; color: #fff; }
-    .btn-neu-sm { background: #fbf4df; color: #4a4231; padding: 5px 11px; font-size: 12px; border-radius: 10px; box-shadow: 3px 3px 5px #dfd3b4, -3px -3px 5px #ffffff; }
+    .btn-neu-sm { background: #fbf4df; color: #4a4231; padding: 5px 10px; font-size: 12px; border-radius: 10px; box-shadow: 3px 3px 5px #dfd3b4, -3px -3px 5px #ffffff; white-space: nowrap; }
     .btn-neu-sm:active { box-shadow: inset 2px 2px 4px #dfd3b4, inset -2px -2px 4px #ffffff; }
     select, input[type="text"], input[type="number"] { width: 100%; padding: 11px; border: none; border-radius: 12px; background: #fbf4df; box-shadow: inset 3px 3px 6px #dfd3b4, inset -3px -3px 6px #ffffff; font-size: 15px; color: #4a4231; }
     .login-center { max-width: 440px; width: 100%; margin: auto; text-align: center; }
@@ -34,15 +34,16 @@
     .clock { font-size: 20px; font-weight: bold; color: #744210; margin-bottom: 24px; padding: 12px; border-radius: 16px; box-shadow: inset 3px 3px 6px #dfd3b4, inset -3px -3px 6px #ffffff; }
     .top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #ebdcb9; }
     .table-wrap { overflow-x: auto; flex: 1; }
-    table { width: 100%; border-collapse: separate; border-spacing: 0 5px; min-width: 820px; }
+    table { width: 100%; border-collapse: separate; border-spacing: 0 5px; min-width: 860px; }
     th { text-align: center; font-size: 13px; color: #744210; padding: 4px 6px; font-weight: bold; }
-    td { background: #fbf4df; padding: 5px 6px; text-align: center; font-size: 14px; font-weight: bold; box-shadow: 0 2px 4px #dfd3b4; height: 38px; }
+    td { background: #fbf4df; padding: 5px 8px; text-align: center; font-size: 14px; font-weight: bold; box-shadow: 0 2px 4px #dfd3b4; height: 38px; }
     td:first-child { border-radius: 10px 0 0 10px; }
     td:last-child { border-radius: 0 10px 10px 0; }
     .vendor-tag { display: inline-block; padding: 3px 10px; border-radius: 8px; font-size: 12px; font-weight: bold; min-width: 64px; }
-    .qty-cell { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-    .qty-num { font-size: 17px; color: #2b6cb0; }
+    .qty-cell { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 6px; }
+    .qty-num { font-size: 16px; color: #2b6cb0; text-align: right; flex: 1; }
     .qty-num.low { color: #e53e3e; }
+    .deliv-num { font-size: 15px; color: #2b8a3e; }
     .chk-big { width: 20px; height: 20px; accent-color: #f39c12; cursor: pointer; vertical-align: middle; }
     .footer-bar { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 12px; padding-top: 8px; }
     .ver-text { font-size: 12px; color: #97835c; font-weight: bold; }
@@ -63,7 +64,7 @@
       <button type="button" class="btn" id="open-staff-btn" style="width:100%;">職員の登録・削除</button>
     </div>
     <div class="footer-bar">
-      <span class="ver-text">Ver.1.0.2</span>
+      <span class="ver-text">Ver.1.0.3</span>
       <button type="button" class="btn btn-primary" id="enter-btn" style="padding:14px 36px; font-size:17px;">入室 ➡</button>
     </div>
   </div>
@@ -94,12 +95,13 @@
         <table>
           <thead>
             <tr>
-              <th style="width:11%;">注文先</th>
-              <th style="width:33%; text-align:left; padding-left:12px;">品名</th>
-              <th style="width:18%;">現在数量</th>
+              <th style="width:10%;">注文先</th>
+              <th style="width:31%; text-align:left; padding-left:12px;">品名</th>
+              <th style="width:14%;">現在数量</th>
               <th style="width:8%;">納品確認</th>
-              <th style="width:10%;">確認者</th>
-              <th style="width:14%;">確認日時</th>
+              <th style="width:10%;">本日納品数</th>
+              <th style="width:9%;">確認者</th>
+              <th style="width:12%;">確認日時</th>
               <th style="width:6%;">操作</th>
             </tr>
           </thead>
@@ -109,7 +111,7 @@
     </div>
 
     <div class="footer-bar">
-      <span class="ver-text">Ver.1.0.2</span>
+      <span class="ver-text">Ver.1.0.3</span>
       <button type="button" class="btn" id="exit-btn" style="padding:10px 28px; font-size:15px;">終了</button>
     </div>
   </div>
@@ -193,18 +195,21 @@
       var filtered = items.filter(function(it){ return fv === "ALL" || it.vendor === fv; });
       var tbody = document.getElementById("item-tbody");
       if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" style="border-radius:10px; color:#8c7b58; padding:18px;">登録されている品目はありません</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" style="border-radius:10px; color:#8c7b58; padding:18px;">登録されている品目はありません</td></tr>';
         return;
       }
       tbody.innerHTML = filtered.map(function(it) {
         var lowCls = it.quantity <= 0 ? " low" : "";
         var vStyle = VENDOR_COLORS[it.vendor] || "background:#f6e05e; color:#4a4231;";
         var unitStr = it.unit || "個";
+        var tdQty = Number(it.today_delivery || 0);
+        var tdHtml = tdQty > 0 ? '<span class="deliv-num">+' + tdQty + unitStr + '</span>' : '<span style="color:#a0aec0;">-</span>';
         return '<tr>' +
           '<td><span class="vendor-tag" style="' + vStyle + '">' + it.vendor + '</span></td>' +
           '<td style="text-align:left; padding-left:12px;">' + it.item_name.replace(/</g,"&lt;") + '</td>' +
-          '<td><div class="qty-cell"><span class="qty-num' + lowCls + '">' + it.quantity + '<small style="font-size:12px; margin-left:2px;">' + unitStr + '</small></span><button type="button" class="btn btn-neu-sm" onclick="openOne(' + it.id + ',' + it.quantity + ')">開封</button></div></td>' +
+          '<td><div class="qty-cell"><span class="qty-num' + lowCls + '">' + it.quantity + unitStr + '</span><button type="button" class="btn btn-neu-sm" onclick="openOne(' + it.id + ',' + it.quantity + ')">開封</button></div></td>' +
           '<td><input type="checkbox" class="chk-big" ' + (it.delivery_checked ? 'checked' : '') + ' onchange="toggleDelivery(' + it.id + ', this.checked)"></td>' +
+          '<td>' + tdHtml + '</td>' +
           '<td style="color:#2b6cb0; font-size:13px;">' + (it.confirmed_by || '-') + '</td>' +
           '<td style="font-size:12px; color:#5a7180;">' + (it.confirmed_at || '-') + '</td>' +
           '<td><button type="button" class="btn btn-neu-sm" onclick="delItem(' + it.id + ')">削除</button></td>' +
@@ -239,9 +244,14 @@
     }
 
     async function toggleDelivery(id, isChecked) {
+      var target = items.find(function(x){ return x.id === id; });
+      var curQty = target ? Number(target.quantity || 0) : 0;
+      var addQty = target ? Number(target.today_delivery || 0) : 0;
       var now = new Date();
       var ts = now.getFullYear() + "/" + String(now.getMonth()+1).padStart(2,"0") + "/" + String(now.getDate()).padStart(2,"0") + " " + String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0");
-      var payload = isChecked ? { delivery_checked: true, confirmed_by: currentUser, confirmed_at: ts } : { delivery_checked: false, confirmed_by: "", confirmed_at: "" };
+      var payload = isChecked
+        ? { delivery_checked: true, confirmed_by: currentUser, confirmed_at: ts, quantity: curQty + addQty, today_delivery: 0 }
+        : { delivery_checked: false, confirmed_by: "", confirmed_at: "" };
       await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify(payload) });
       await loadAll();
     }
