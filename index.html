@@ -21,36 +21,36 @@
   </script>
   <style>
     * { box-sizing: border-box; font-family: sans-serif; }
-    body { margin: 0; padding: 18px; background: #fbf4df; color: #4a4231; display: flex; justify-content: center; min-height: 100vh; touch-action: manipulation; }
-    .screen { width: 100%; max-width: 1080px; background: #fbf4df; border-radius: 26px; padding: 24px; box-shadow: 10px 10px 20px #dfd3b4, -10px -10px 20px #ffffff; display: flex; flex-direction: column; justify-content: space-between; min-height: calc(100vh - 36px); }
-    .btn { background: #fbf4df; border: none; border-radius: 14px; padding: 11px 18px; font-weight: bold; color: #4a4231; cursor: pointer; box-shadow: 4px 4px 8px #dfd3b4, -4px -4px 8px #ffffff; font-size: 14px; }
-    .btn:active { box-shadow: inset 3px 3px 6px #dfd3b4, inset -3px -3px 6px #ffffff; }
+    body { margin: 0; padding: 14px; background: #fbf4df; color: #4a4231; display: flex; justify-content: center; min-height: 100vh; touch-action: manipulation; }
+    .screen { width: 100%; max-width: 1140px; background: #fbf4df; border-radius: 24px; padding: 18px 22px; box-shadow: 10px 10px 20px #dfd3b4, -10px -10px 20px #ffffff; display: flex; flex-direction: column; justify-content: space-between; min-height: calc(100vh - 28px); }
+    .btn { background: #fbf4df; border: none; border-radius: 12px; padding: 9px 16px; font-weight: bold; color: #4a4231; cursor: pointer; box-shadow: 3px 3px 6px #dfd3b4, -3px -3px 6px #ffffff; font-size: 13px; }
+    .btn:active { box-shadow: inset 2px 2px 5px #dfd3b4, inset -2px -2px 5px #ffffff; }
     .btn-primary { background: #f39c12; color: #fff; }
-    .btn-open { background: #63b3ed; color: #fff; padding: 8px 16px; font-size: 14px; border-radius: 12px; }
-    .btn-danger { background: #feb2b2; color: #4a3b3e; padding: 6px 10px; font-size: 12px; }
-    select, input[type="text"], input[type="number"] { width: 100%; padding: 12px; border: none; border-radius: 14px; background: #fbf4df; box-shadow: inset 3px 3px 6px #dfd3b4, inset -3px -3px 6px #ffffff; font-size: 16px; color: #4a4231; }
+    .btn-neu-sm { background: #fbf4df; color: #4a4231; padding: 5px 11px; font-size: 12px; border-radius: 10px; box-shadow: 3px 3px 5px #dfd3b4, -3px -3px 5px #ffffff; }
+    .btn-neu-sm:active { box-shadow: inset 2px 2px 4px #dfd3b4, inset -2px -2px 4px #ffffff; }
+    select, input[type="text"], input[type="number"] { width: 100%; padding: 11px; border: none; border-radius: 12px; background: #fbf4df; box-shadow: inset 3px 3px 6px #dfd3b4, inset -3px -3px 6px #ffffff; font-size: 15px; color: #4a4231; }
     .login-center { max-width: 440px; width: 100%; margin: auto; text-align: center; }
-    .login-title { font-size: 28px; color: #b7791f; margin: 0 0 12px; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-    .clock { font-size: 20px; font-weight: bold; color: #744210; margin-bottom: 28px; padding: 12px; border-radius: 16px; box-shadow: inset 3px 3px 6px #dfd3b4, inset -3px -3px 6px #ffffff; }
-    .top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 2px solid #ebdcb9; }
+    .login-title { font-size: 28px; color: #b7791f; margin: 0 0 12px; }
+    .clock { font-size: 20px; font-weight: bold; color: #744210; margin-bottom: 24px; padding: 12px; border-radius: 16px; box-shadow: inset 3px 3px 6px #dfd3b4, inset -3px -3px 6px #ffffff; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #ebdcb9; }
     .table-wrap { overflow-x: auto; flex: 1; }
-    table { width: 100%; border-collapse: separate; border-spacing: 0 10px; min-width: 760px; }
-    th { text-align: center; font-size: 14px; color: #744210; padding: 8px; font-weight: bold; }
-    td { background: #fbf4df; padding: 12px 10px; text-align: center; font-size: 15px; font-weight: bold; box-shadow: 0 3px 6px #dfd3b4; }
-    td:first-child { border-radius: 14px 0 0 14px; }
-    td:last-child { border-radius: 0 14px 14px 0; }
-    .qty-cell { display: flex; align-items: center; justify-content: center; gap: 14px; }
-    .qty-num { font-size: 22px; min-width: 42px; color: #2b6cb0; }
+    table { width: 100%; border-collapse: separate; border-spacing: 0 5px; min-width: 820px; }
+    th { text-align: center; font-size: 13px; color: #744210; padding: 4px 6px; font-weight: bold; }
+    td { background: #fbf4df; padding: 5px 6px; text-align: center; font-size: 14px; font-weight: bold; box-shadow: 0 2px 4px #dfd3b4; height: 38px; }
+    td:first-child { border-radius: 10px 0 0 10px; }
+    td:last-child { border-radius: 0 10px 10px 0; }
+    .vendor-tag { display: inline-block; padding: 3px 10px; border-radius: 8px; font-size: 12px; font-weight: bold; min-width: 64px; }
+    .qty-cell { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+    .qty-num { font-size: 17px; color: #2b6cb0; }
     .qty-num.low { color: #e53e3e; }
-    .chk-big { width: 24px; height: 24px; accent-color: #f39c12; cursor: pointer; }
-    .footer-bar { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px; padding-top: 12px; }
+    .chk-big { width: 20px; height: 20px; accent-color: #f39c12; cursor: pointer; vertical-align: middle; }
+    .footer-bar { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 12px; padding-top: 8px; }
     .ver-text { font-size: 12px; color: #97835c; font-weight: bold; }
     .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 100; }
     .modal-body { width: 100%; max-width: 420px; background: #fbf4df; border-radius: 22px; padding: 22px; box-shadow: 8px 8px 16px #b8aa88; }
   </style>
 </head>
 <body>
-  <!-- オープニング（ログイン）画面 -->
   <div class="screen" id="login-screen">
     <div></div>
     <div class="login-center">
@@ -63,21 +63,20 @@
       <button type="button" class="btn" id="open-staff-btn" style="width:100%;">職員の登録・削除</button>
     </div>
     <div class="footer-bar">
-      <span class="ver-text">Ver.1.0.0</span>
+      <span class="ver-text">Ver.1.0.2</span>
       <button type="button" class="btn btn-primary" id="enter-btn" style="padding:14px 36px; font-size:17px;">入室 ➡</button>
     </div>
   </div>
 
-  <!-- 在庫管理メイン画面 -->
   <div class="screen" id="main-screen" style="display:none;">
     <div style="display:flex; flex-direction:column; flex:1;">
       <div class="top-bar">
         <div style="display:flex; align-items:center; gap:12px;">
-          <strong style="font-size:20px; color:#b7791f;">🦷 在庫管理一覧</strong>
-          <span id="current-user-badge" style="background:#f6e05e; padding:5px 12px; border-radius:12px; font-size:13px; font-weight:bold;"></span>
+          <strong style="font-size:19px; color:#b7791f;">🦷 在庫管理一覧</strong>
+          <span id="current-user-badge" style="background:#f6e05e; padding:4px 12px; border-radius:10px; font-size:13px; font-weight:bold;"></span>
         </div>
         <div style="display:flex; gap:10px; align-items:center;">
-          <select id="filter-vendor" style="width:auto; padding:9px 14px; font-size:14px;">
+          <select id="filter-vendor" style="width:auto; padding:8px 12px; font-size:13px;">
             <option value="ALL">すべての注文先</option>
             <option value="ヒロ">ヒロ</option>
             <option value="ササキ">ササキ</option>
@@ -89,17 +88,18 @@
         </div>
       </div>
 
-      <div id="status" style="color:#e53e3e; font-size:13px; font-weight:bold; text-align:center;"></div>
+      <div id="status" style="color:#e53e3e; font-size:12px; font-weight:bold; text-align:center;"></div>
 
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th style="width:15%;">注文先</th>
-              <th style="width:32%; text-align:left; padding-left:16px;">品名</th>
-              <th style="width:23%;">現在数量</th>
-              <th style="width:12%;">納品確認</th>
-              <th style="width:12%;">確認者</th>
+              <th style="width:11%;">注文先</th>
+              <th style="width:33%; text-align:left; padding-left:12px;">品名</th>
+              <th style="width:18%;">現在数量</th>
+              <th style="width:8%;">納品確認</th>
+              <th style="width:10%;">確認者</th>
+              <th style="width:14%;">確認日時</th>
               <th style="width:6%;">操作</th>
             </tr>
           </thead>
@@ -109,11 +109,10 @@
     </div>
 
     <div class="footer-bar">
-      <span class="ver-text">Ver.1.0.0</span>
-      <button type="button" class="btn" id="exit-btn" style="padding:12px 32px; font-size:16px; background:#e2e8f0;">終了</button>
+      <span class="ver-text">Ver.1.0.2</span>
+      <button type="button" class="btn" id="exit-btn" style="padding:10px 28px; font-size:15px;">終了</button>
     </div>
   </div>
-  <!-- 新規品目登録モーダル -->
   <div class="modal" id="item-modal">
     <div class="modal-body">
       <h3 style="margin:0 0 16px; text-align:center; color:#b7791f;">新規品目の登録</h3>
@@ -127,8 +126,17 @@
       </select>
       <label style="font-size:13px; font-weight:bold;">品名</label>
       <input type="text" id="in-name" placeholder="例：グローブ Mサイズ" style="margin:6px 0 14px;">
-      <label style="font-size:13px; font-weight:bold;">現在数量（初期在庫数）</label>
-      <input type="number" id="in-qty" value="1" min="0" style="margin:6px 0 18px;">
+      <label style="font-size:13px; font-weight:bold;">現在数量（初期在庫数と単位）</label>
+      <div style="display:flex; gap:10px; align-items:center; margin:6px 0 18px;">
+        <input type="number" id="in-qty" value="1" min="0" style="flex:2;">
+        <select id="in-unit" style="flex:1;">
+          <option value="個">個</option>
+          <option value="本">本</option>
+          <option value="箱">箱</option>
+          <option value="瓶">瓶</option>
+          <option value="組">組</option>
+        </select>
+      </div>
       <div style="display:flex; gap:10px;">
         <button type="button" class="btn" id="item-close" style="flex:1;">閉じる</button>
         <button type="button" class="btn btn-primary" id="item-save" style="flex:1;">登録する</button>
@@ -136,7 +144,6 @@
     </div>
   </div>
 
-  <!-- 職員の登録・削除モーダル -->
   <div class="modal" id="staff-modal">
     <div class="modal-body">
       <h3 style="margin:0 0 14px; text-align:center;">職員の登録・削除</h3>
@@ -154,6 +161,14 @@
     var SB_URL = "https://" + "krwddlhwqkgggyxdcncn" + ".supabase.co/rest/v1";
     var SB_KEY = "sb_publishable_nfJsyzjRbQ8jeIHgVHwoqg_-B1glb0G";
     var currentUser = "", staffs = [], items = [];
+
+    var VENDOR_COLORS = {
+      "ヒロ": "background:#ffd6dc; color:#822736;",
+      "ササキ": "background:#d0ebff; color:#1864ab;",
+      "三重D": "background:#d3f9d8; color:#2b8a3e;",
+      "Ci": "background:#e5dbff; color:#5f3dc4;",
+      "アスクル": "background:#ffe8cc; color:#d9480f;"
+    };
 
     function updateClock() {
       var now = new Date();
@@ -178,39 +193,37 @@
       var filtered = items.filter(function(it){ return fv === "ALL" || it.vendor === fv; });
       var tbody = document.getElementById("item-tbody");
       if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="border-radius:14px; color:#8c7b58; padding:24px;">登録されている品目はありません</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" style="border-radius:10px; color:#8c7b58; padding:18px;">登録されている品目はありません</td></tr>';
         return;
       }
       tbody.innerHTML = filtered.map(function(it) {
         var lowCls = it.quantity <= 0 ? " low" : "";
+        var vStyle = VENDOR_COLORS[it.vendor] || "background:#f6e05e; color:#4a4231;";
+        var unitStr = it.unit || "個";
         return '<tr>' +
-          '<td><span style="background:#f6e05e; padding:4px 10px; border-radius:8px; font-size:13px;">' + it.vendor + '</span></td>' +
-          '<td style="text-align:left; padding-left:16px;">' + it.item_name.replace(/</g,"&lt;") + '</td>' +
-          '<td><div class="qty-cell"><span class="qty-num' + lowCls + '">' + it.quantity + '</span><button type="button" class="btn btn-open" onclick="openOne(' + it.id + ',' + it.quantity + ')">開封</button></div></td>' +
+          '<td><span class="vendor-tag" style="' + vStyle + '">' + it.vendor + '</span></td>' +
+          '<td style="text-align:left; padding-left:12px;">' + it.item_name.replace(/</g,"&lt;") + '</td>' +
+          '<td><div class="qty-cell"><span class="qty-num' + lowCls + '">' + it.quantity + '<small style="font-size:12px; margin-left:2px;">' + unitStr + '</small></span><button type="button" class="btn btn-neu-sm" onclick="openOne(' + it.id + ',' + it.quantity + ')">開封</button></div></td>' +
           '<td><input type="checkbox" class="chk-big" ' + (it.delivery_checked ? 'checked' : '') + ' onchange="toggleDelivery(' + it.id + ', this.checked)"></td>' +
-          '<td style="color:#2b6cb0;">' + (it.confirmed_by || '-') + '</td>' +
-          '<td><button type="button" class="btn btn-danger" onclick="delItem(' + it.id + ')">削除</button></td>' +
+          '<td style="color:#2b6cb0; font-size:13px;">' + (it.confirmed_by || '-') + '</td>' +
+          '<td style="font-size:12px; color:#5a7180;">' + (it.confirmed_at || '-') + '</td>' +
+          '<td><button type="button" class="btn btn-neu-sm" onclick="delItem(' + it.id + ')">削除</button></td>' +
         '</tr>';
       }).join("");
     }
 
     async function loadAll() {
       try {
-        var r1 = await api("/staff?select=*");
-        if (!r1.ok) throw new Error(await r1.text());
-        staffs = await r1.json();
-
+        var r1 = await api("/staff?select=*"); if (!r1.ok) throw new Error(await r1.text()); staffs = await r1.json();
         var sel = document.getElementById("login-staff"), old = sel.value;
         sel.innerHTML = '<option value="">-- 職員名を選択 --</option>' + staffs.map(function(s){ return '<option value="' + s.name + '">' + s.name + '</option>'; }).join("");
         if (staffs.some(function(s){ return s.name === old; })) sel.value = old;
 
         document.getElementById("del-box").innerHTML = staffs.length ? staffs.map(function(s){
-          return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:6px;border-radius:12px;box-shadow:inset 2px 2px 5px #dfd3b4;"><span>' + s.name + '</span><button type="button" class="btn btn-danger" onclick="delS(\'' + s.name + '\')">削除</button></div>';
+          return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:6px;border-radius:12px;box-shadow:inset 2px 2px 5px #dfd3b4;"><span>' + s.name + '</span><button type="button" class="btn btn-neu-sm" onclick="delS(\'' + s.name + '\')">削除</button></div>';
         }).join("") : '<p style="font-size:13px; color:#8c7b58; text-align:center;">登録されている職員はいません</p>';
 
-        var r2 = await api("/inventory?select=*&order=id.asc");
-        if (!r2.ok) throw new Error(await r2.text());
-        items = await r2.json();
+        var r2 = await api("/inventory?select=*&order=id.asc"); if (!r2.ok) throw new Error(await r2.text()); items = await r2.json();
         renderTable();
         document.getElementById("status").innerText = "";
       } catch (e) { document.getElementById("status").innerText = "エラー: " + e.message; }
@@ -221,23 +234,19 @@
 
     async function openOne(id, curQty) {
       if (curQty <= 0) return alert("すでに在庫は0です");
-      var nextQty = curQty - 1;
-      await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify({ quantity: nextQty }) });
+      await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify({ quantity: curQty - 1 }) });
       await loadAll();
     }
 
     async function toggleDelivery(id, isChecked) {
-      var confName = isChecked ? currentUser : "";
-      await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify({ delivery_checked: isChecked, confirmed_by: confName }) });
+      var now = new Date();
+      var ts = now.getFullYear() + "/" + String(now.getMonth()+1).padStart(2,"0") + "/" + String(now.getDate()).padStart(2,"0") + " " + String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0");
+      var payload = isChecked ? { delivery_checked: true, confirmed_by: currentUser, confirmed_at: ts } : { delivery_checked: false, confirmed_by: "", confirmed_at: "" };
+      await api("/inventory?id=eq." + id, { method: "PATCH", body: JSON.stringify(payload) });
       await loadAll();
     }
 
-    async function delItem(id) {
-      if (confirm("この品目を削除しますか？")) {
-        await api("/inventory?id=eq." + id, { method: "DELETE" });
-        await loadAll();
-      }
-    }
+    async function delItem(id) { if (confirm("この品目を削除しますか？")) { await api("/inventory?id=eq." + id, { method: "DELETE" }); await loadAll(); } }
 
     document.getElementById("enter-btn").onclick = function() {
       var val = document.getElementById("login-staff").value;
@@ -247,14 +256,12 @@
       document.getElementById("login-screen").style.display = "none";
       document.getElementById("main-screen").style.display = "flex";
     };
-
     document.getElementById("exit-btn").onclick = function() {
       currentUser = "";
       document.getElementById("login-staff").value = "";
       document.getElementById("main-screen").style.display = "none";
       document.getElementById("login-screen").style.display = "flex";
     };
-
     document.getElementById("filter-vendor").onchange = renderTable;
     document.getElementById("open-add-item-btn").onclick = function() { document.getElementById("item-modal").style.display = "flex"; };
     document.getElementById("item-close").onclick = function() { document.getElementById("item-modal").style.display = "none"; };
@@ -265,15 +272,15 @@
       var vendor = document.getElementById("in-vendor").value;
       var name = document.getElementById("in-name").value.trim();
       var qty = Number(document.getElementById("in-qty").value);
+      var unit = document.getElementById("in-unit").value;
       if (!name) return alert("品名を入力してください");
-      var res = await api("/inventory", { method: "POST", body: JSON.stringify({ vendor: vendor, item_name: name, quantity: qty }) });
+      var res = await api("/inventory", { method: "POST", body: JSON.stringify({ vendor: vendor, item_name: name, quantity: qty, unit: unit }) });
       if (!res.ok) return alert("登録エラー: " + await res.text());
       document.getElementById("in-name").value = "";
       document.getElementById("in-qty").value = "1";
       document.getElementById("item-modal").style.display = "none";
       await loadAll();
     };
-
     document.getElementById("add-staff-btn").onclick = async function() {
       var n = document.getElementById("new-name").value.trim();
       if (!n) return alert("名前を入力してください");
@@ -283,13 +290,7 @@
       document.getElementById("new-name").value = "";
       await loadAll();
     };
-
-    async function delS(name) {
-      if (confirm("「" + name + "」さんをリストから削除しますか？")) {
-        await api("/staff?name=eq." + encodeURIComponent(name), { method: "DELETE" });
-        await loadAll();
-      }
-    }
+    async function delS(name) { if (confirm("「" + name + "」さんをリストから削除しますか？")) { await api("/staff?name=eq." + encodeURIComponent(name), { method: "DELETE" }); await loadAll(); } }
   </script>
 </body>
 </html>
