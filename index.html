@@ -125,15 +125,17 @@
           <button type="button" class="btn btn-primary" id="add-vendor-btn" style="white-space:nowrap;">業者追加</button>
         </div>
       </div>
-      <label style="font-size:13px; font-weight:bold;">品名</label>
-      <input type="text" id="in-name" placeholder="例：グローブ Mサイズ" style="margin:6px 0 12px;">
-      <label style="font-size:13px; font-weight:bold;">現在数量（初期在庫数と単位）</label>
-      <div style="display:flex; gap:10px; align-items:center; margin:6px 0 16px;">
-        <input type="number" id="in-qty" value="1" min="0" style="flex:2;">
-        <select id="in-unit" style="flex:1;">
-          <option value="個">個</option><option value="本">本</option><option value="箱">箱</option><option value="瓶">瓶</option><option value="組">組</option>
-        </select>
-      </div>
+          <label style="font-size:13px; font-weight:bold;">品名</label>
+    <input type="text" id="in-name" placeholder="例：グローブ Mサイズ" style="margin:6px 0 12px;">
+    <div style="font-size:12px; color:#744210; font-weight:bold; margin-bottom:10px;">※登録時の現在数量は自動的に「0」になります</div>
+    <label style="font-size:13px; font-weight:bold;">注文数量と単位（注文アプリへ同時送信）</label>
+    <div style="display:flex; gap:10px; align-items:center; margin:6px 0 16px;">
+      <input type="number" id="in-order-qty" value="1" min="0" style="flex:2;">
+      <select id="in-unit" style="flex:1;">
+        <option value="個">個</option><option value="本">本</option><option value="箱">箱</option><option value="瓶">瓶</option><option value="組">組</option>
+      </select>
+    </div>
+
       <div style="display:flex; gap:10px;">
         <button type="button" class="btn" id="item-close" style="flex:1;">閉じる</button>
         <button type="button" class="btn btn-primary" id="item-save" style="flex:1;">登録する</button>
@@ -343,12 +345,15 @@
       await api("/vendors", { method: "POST", body: JSON.stringify({ name: vn }) });
       document.getElementById("new-vendor-name").value = ""; document.getElementById("new-vendor-box").style.display = "none"; await loadAll(); document.getElementById("in-vendor").value = vn;
     };
-    document.getElementById("item-save").onclick = async function() {
-      var vendor = document.getElementById("in-vendor").value; if (!vendor || vendor === "__ADD_V__") return alert("注文先を選択してください");
-      var name = document.getElementById("in-name").value.trim(); if (!name) return alert("品名を入力してください");
-      await api("/inventory", { method: "POST", body: JSON.stringify({ vendor: vendor, item_name: name, quantity: Number(document.getElementById("in-qty").value), unit: document.getElementById("in-unit").value }) });
-      document.getElementById("in-name").value = ""; document.getElementById("item-modal").style.display = "none"; await loadAll();
-    };
+      document.getElementById("item-save").onclick = async function() {
+    var vendor = document.getElementById("in-vendor").value; if (!vendor || vendor === "__ADD_V__") return alert("注文先を選択してください");
+    var name = document.getElementById("in-name").value.trim(); if (!name) return alert("品名を入力してください");
+    var orderQty = Number(document.getElementById("in-order-qty").value);
+    if (orderQty < 0) return alert("0以上の注文数量を入力してください");
+    await api("/inventory", { method: "POST", body: JSON.stringify({ vendor: vendor, item_name: name, quantity: 0, ordered_qty: orderQty, unit: document.getElementById("in-unit").value }) });
+    document.getElementById("in-name").value = ""; document.getElementById("in-order-qty").value = "1"; document.getElementById("item-modal").style.display = "none"; await loadAll();
+  };
+
     document.getElementById("open-staff-btn").onclick = function() { document.getElementById("staff-modal").style.display = "flex"; };
     document.getElementById("staff-close").onclick = function() { document.getElementById("staff-modal").style.display = "none"; };
     document.getElementById("add-staff-btn").onclick = async function() { var n = document.getElementById("new-name").value.trim(); if (!n) return; await api("/staff", { method: "POST", body: JSON.stringify({ name: n }) }); document.getElementById("new-name").value = ""; await loadAll(); };
