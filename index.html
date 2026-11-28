@@ -69,7 +69,7 @@
       <button type="button" class="btn" id="open-staff-btn" style="width:100%;">職員の登録・削除</button>
     </div>
     <div class="footer-bar">
-      <span class="ver-text">Ver.1.1.7</span>
+      <span class="ver-text">Ver.1.2.0</span>
       <button type="button" class="btn btn-primary" id="enter-btn" style="padding:14px 36px; font-size:17px;">入室 ➡</button>
     </div>
   </div>
@@ -110,7 +110,7 @@
       </div>
     </div>
     <div class="footer-bar">
-      <span class="ver-text">Ver.1.1.7</span>
+      <span class="ver-text">Ver.1.2.0</span>
       <button type="button" class="btn no-print" id="exit-btn" style="padding:10px 28px; font-size:15px;">終了</button>
     </div>
   </div>
@@ -125,17 +125,16 @@
           <button type="button" class="btn btn-primary" id="add-vendor-btn" style="white-space:nowrap;">業者追加</button>
         </div>
       </div>
-          <label style="font-size:13px; font-weight:bold;">品名</label>
-    <input type="text" id="in-name" placeholder="例：グローブ Mサイズ" style="margin:6px 0 12px;">
-    <div style="font-size:12px; color:#744210; font-weight:bold; margin-bottom:10px;">※登録時の現在数量は自動的に「0」になります</div>
-    <label style="font-size:13px; font-weight:bold;">注文数量と単位（注文アプリへ同時送信）</label>
-    <div style="display:flex; gap:10px; align-items:center; margin:6px 0 16px;">
-      <input type="number" id="in-order-qty" value="1" min="0" style="flex:2;">
-      <select id="in-unit" style="flex:1;">
-        <option value="個">個</option><option value="本">本</option><option value="箱">箱</option><option value="瓶">瓶</option><option value="組">組</option>
-      </select>
-    </div>
-
+      <label style="font-size:13px; font-weight:bold;">品名</label>
+      <input type="text" id="in-name" placeholder="例：グローブ Mサイズ" style="margin:6px 0 12px;">
+      <div style="font-size:12px; color:#744210; font-weight:bold; margin-bottom:10px;">※登録時の現在数量は自動的に「0」になります</div>
+      <label style="font-size:13px; font-weight:bold;">注文数量と単位（注文アプリへ同時送信）</label>
+      <div style="display:flex; gap:10px; align-items:center; margin:6px 0 16px;">
+        <input type="number" id="in-order-qty" value="1" min="0" style="flex:2;">
+        <select id="in-unit" style="flex:1;">
+          <option value="個">個</option><option value="本">本</option><option value="箱">箱</option><option value="瓶">瓶</option><option value="組">組</option>
+        </select>
+      </div>
       <div style="display:flex; gap:10px;">
         <button type="button" class="btn" id="item-close" style="flex:1;">閉じる</button>
         <button type="button" class="btn btn-primary" id="item-save" style="flex:1;">登録する</button>
@@ -242,6 +241,8 @@
           statusBadge = '<span class="alert-box no-print">注文しますか？<button type="button" class="btn btn-neu-sm" style="background:#fc8181;color:#fff;padding:1px 6px;" onclick="openOrderModal(' + it.id + ')">はい</button><button type="button" class="btn btn-neu-sm" style="padding:1px 6px;" onclick="dismissAlert(' + it.id + ')">いいえ</button></span>';
         }
 
+        var priceStr = (it.unit_price !== null && it.unit_price !== undefined) ? Number(it.unit_price).toLocaleString() + '円' : '-';
+
         return '<tr>' +
           '<td><span class="vendor-tag" style="' + getVendorStyle(it.vendor) + '">' + it.vendor + '</span></td>' +
           '<td><div class="name-flex"><div><span>' + it.item_name.replace(/</g,"&lt;") + '</span> ' + statusBadge + '</div>' +
@@ -249,7 +250,7 @@
           '<td><div class="qty-cell"><span class="qty-num' + (isLow ? ' low' : '') + '">' + it.quantity + unitStr + '</span><button type="button" class="btn btn-neu-sm no-print" onclick="openOne(' + it.id + ',' + it.quantity + ')">開封</button></div></td>' +
           '<td><input type="checkbox" class="chk-big" ' + (it.delivery_checked ? 'checked' : '') + ' onchange="toggleDelivery(' + it.id + ', this.checked)"></td>' +
           '<td style="color:#2b8a3e;">' + (tdQty > 0 ? '+' + tdQty + unitStr : '-') + '</td>' +
-          '<td style="font-size:12px;">' + (it.unit_price > 0 ? it.unit_price.toLocaleString() + '円' : '-') + '</td>' +
+          '<td style="font-size:12px;">' + priceStr + '</td>' +
           '<td style="color:#2b6cb0; font-size:12px;">' + (it.confirmed_by || '-') + '</td>' +
           '<td style="font-size:11px; color:#5a7180;">' + (it.confirmed_at || '-') + '</td>' +
           '<td class="no-print"><button type="button" class="btn btn-neu-sm" onclick="delItem(' + it.id + ')">削除</button></td>' +
@@ -345,15 +346,13 @@
       await api("/vendors", { method: "POST", body: JSON.stringify({ name: vn }) });
       document.getElementById("new-vendor-name").value = ""; document.getElementById("new-vendor-box").style.display = "none"; await loadAll(); document.getElementById("in-vendor").value = vn;
     };
-      document.getElementById("item-save").onclick = async function() {
-    var vendor = document.getElementById("in-vendor").value; if (!vendor || vendor === "__ADD_V__") return alert("注文先を選択してください");
-    var name = document.getElementById("in-name").value.trim(); if (!name) return alert("品名を入力してください");
-    var orderQty = Number(document.getElementById("in-order-qty").value);
-    if (orderQty < 0) return alert("0以上の注文数量を入力してください");
-    await api("/inventory", { method: "POST", body: JSON.stringify({ vendor: vendor, item_name: name, quantity: 0, ordered_qty: orderQty, unit: document.getElementById("in-unit").value }) });
-    document.getElementById("in-name").value = ""; document.getElementById("in-order-qty").value = "1"; document.getElementById("item-modal").style.display = "none"; await loadAll();
-  };
-
+    document.getElementById("item-save").onclick = async function() {
+      var vendor = document.getElementById("in-vendor").value; if (!vendor || vendor === "__ADD_V__") return alert("注文先を選択してください");
+      var name = document.getElementById("in-name").value.trim(); if (!name) return alert("品名を入力してください");
+      var orderQty = Number(document.getElementById("in-order-qty").value); if (orderQty < 0) return alert("0以上の注文数量を入力してください");
+      await api("/inventory", { method: "POST", body: JSON.stringify({ vendor: vendor, item_name: name, quantity: 0, ordered_qty: orderQty, unit: document.getElementById("in-unit").value }) });
+      document.getElementById("in-name").value = ""; document.getElementById("in-order-qty").value = "1"; document.getElementById("item-modal").style.display = "none"; await loadAll();
+    };
     document.getElementById("open-staff-btn").onclick = function() { document.getElementById("staff-modal").style.display = "flex"; };
     document.getElementById("staff-close").onclick = function() { document.getElementById("staff-modal").style.display = "none"; };
     document.getElementById("add-staff-btn").onclick = async function() { var n = document.getElementById("new-name").value.trim(); if (!n) return; await api("/staff", { method: "POST", body: JSON.stringify({ name: n }) }); document.getElementById("new-name").value = ""; await loadAll(); };
